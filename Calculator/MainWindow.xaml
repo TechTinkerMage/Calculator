@@ -5,8 +5,92 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Calculator" Height="450" Width="800" Background="#202020">
 
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="1"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#3A3F4B"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#5A5F6B"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#2A2F3B"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="RoundedTextBox">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#2A2A2A"/>
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="12"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          VerticalAlignment="Center"
+                                          Margin="0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="130"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBox Text="{Binding Expression, Mode=TwoWay}"
+                 Style="{StaticResource RoundedTextBox}" IsReadOnly="True"/>
+
+        <UniformGrid Grid.Row="1" Columns="4" Margin="20,5,20,20">
+            <Button Content="7" Command="{Binding InputCommand}" CommandParameter="7"/>
+            <Button Content="8" Command="{Binding InputCommand}" CommandParameter="8"/>
+            <Button Content="9" Command="{Binding InputCommand}" CommandParameter="9"/>
+            <Button Content="/" Command="{Binding InputCommand}" CommandParameter="/"/>
+
+            <Button Content="4" Command="{Binding InputCommand}" CommandParameter="4"/>
+            <Button Content="5" Command="{Binding InputCommand}" CommandParameter="5"/>
+            <Button Content="6" Command="{Binding InputCommand}" CommandParameter="6"/>
+            <Button Content="*" Command="{Binding InputCommand}" CommandParameter="*"/>
+
+            <Button Content="1" Command="{Binding InputCommand}" CommandParameter="1"/>
+            <Button Content="2" Command="{Binding InputCommand}" CommandParameter="2"/>
+            <Button Content="3" Command="{Binding InputCommand}" CommandParameter="3"/>
+            <Button Content="-" Command="{Binding InputCommand}" CommandParameter="-"/>
+
+            <Button Content="0" Command="{Binding InputCommand}" CommandParameter="0"/>
+            <Button Content="C" Command="{Binding ClearCommand}" />
+            <Button Background="#de765d" Content="=" Command="{Binding EvaluateCommand}"/>
+            <Button Content="+" Command="{Binding InputCommand}" CommandParameter="+"/>
+        </UniformGrid>
     </Grid>
 </Window>
